@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Search Results — ShopNest</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+  <link rel="stylesheet" th:href="@{/css/shopnest.css}">
+</head>
+<body>
+
+<!-- Navbar -->
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<!-- Search Header -->
+<div class="sn-cat-header">
+  <div class="container">
+    <div class="sn-breadcrumb">
+      <a th:href="@{/}">Home</a>
+      <span class="mx-2">›</span>
+      <span>Search Results</span>
+    </div>
+    <h1>Results for "<span th:text="${keyword}">keyword</span>"</h1>
+    <p th:text="${#lists.size(products)} + ' products found'">Products found</p>
+  </div>
+</div>
+
+<!-- Results -->
+<div class="sn-page">
+  <div class="container">
+
+    <!-- No results -->
+    <div th:if="${#lists.isEmpty(products)}"
+         class="text-center py-5">
+      <i class="bi bi-search"
+         style="font-size:64px; color:#e8e6e0; display:block; margin-bottom:16px;"></i>
+      <h3 style="color:#6b6860;">No products found</h3>
+      <p style="color:#a8a49c;">
+        Try a different keyword or
+        <a th:href="@{/}" style="color:#1a5c38;">browse categories</a>
+      </p>
+    </div>
+
+    <!-- Products grid -->
+    <div class="row g-3" th:if="${!#lists.isEmpty(products)}">
+      <div class="col-6 col-md-4 col-lg-3"
+           th:each="product : ${products}">
+        <div class="sn-product-card">
+
+          <div class="sn-product-img-wrap">
+            <img th:src="${product.imageUrl}"
+                 th:alt="${product.name}"
+                 onerror="this.src='https://picsum.photos/seed/product/400/300'">
+          </div>
+
+          <div class="sn-product-body">
+            <div class="sn-product-cat"
+                 th:text="${product.category.name}">Category</div>
+            <div class="sn-product-name"
+                 th:text="${product.name}">Product Name</div>
+            <div class="sn-product-desc"
+                 th:text="${product.description}">Description</div>
+
+            <div class="sn-product-footer">
+              <div class="sn-product-price">
+                ₹<span th:text="${#numbers.formatDecimal(product.price, 1, 'COMMA', 0, 'POINT')}">0</span>
+              </div>
+
+              <div sec:authorize="isAuthenticated()">
+                <form th:action="@{/cart/add}" method="post">
+                  <input type="hidden" name="productId" th:value="${product.id}">
+                  <input type="hidden" name="quantity" value="1">
+                  <button type="submit" class="sn-add-btn">
+                    <i class="bi bi-bag-plus"></i> Add
+                  </button>
+                </form>
+              </div>
+
+              <div sec:authorize="isAnonymous()">
+                <a th:href="@{/login}" class="sn-add-btn">
+                  <i class="bi bi-bag-plus"></i> Add
+                </a>
+              </div>
+            </div>
+
+            <div class="mt-2">
+              <span class="sn-stock-badge sn-in-stock"
+                    th:if="${product.stock > 0}">In Stock</span>
+              <span class="sn-stock-badge sn-out-stock"
+                    th:if="${product.stock == 0}">Out of Stock</span>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<footer class="sn-footer">
+  <div class="container">
+    <div class="sn-footer-bottom">
+      © 2024 ShopNest. All rights reserved.
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

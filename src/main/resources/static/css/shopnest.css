@@ -1,0 +1,855 @@
+/* ===== Reset & Base ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Segoe UI", Roboto, sans-serif;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    min-height: 100vh;
+}
+
+/* ===== Page Layout ===== */
+.sn-auth-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* ===== Card ===== */
+.sn-auth-card {
+    width: 100%;
+    max-width: 420px;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(15px);
+    border-radius: 16px;
+    padding: 35px 30px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    color: #fff;
+    animation: fadeIn 0.6s ease-in-out;
+}
+
+/* ===== Logo ===== */
+.sn-auth-logo {
+    font-size: 28px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.sn-auth-logo span {
+    color: #ffd369;
+}
+
+/* ===== Title ===== */
+.sn-auth-title {
+    text-align: center;
+    font-size: 14px;
+    margin-bottom: 25px;
+    opacity: 0.85;
+}
+
+/* ===== Error Message ===== */
+.sn-alert-error {
+    background: rgba(255, 0, 0, 0.2);
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    text-align: center;
+    font-size: 14px;
+}
+
+/* ===== Form ===== */
+.sn-form-group {
+    margin-bottom: 18px;
+}
+
+.sn-form-label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 13px;
+    opacity: 0.9;
+}
+
+/* ===== Inputs ===== */
+.sn-form-input {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: none;
+    outline: none;
+    font-size: 14px;
+    background: rgba(255,255,255,0.9);
+    transition: all 0.3s ease;
+}
+
+/* Focus Effect */
+.sn-form-input:focus {
+    background: #fff;
+    box-shadow: 0 0 0 2px #ffd369;
+}
+
+/* ===== Button ===== */
+.sn-submit-btn {
+    width: 100%;
+    padding: 11px;
+    border: none;
+    border-radius: 8px;
+    background: #ffd369;
+    color: #333;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.sn-submit-btn:hover {
+    background: #ffb703;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+}
+
+/* ===== Switch Link ===== */
+.sn-auth-switch {
+    margin-top: 18px;
+    text-align: center;
+    font-size: 13px;
+}
+
+.sn-auth-switch a {
+    color: #ffd369;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.sn-auth-switch a:hover {
+    text-decoration: underline;
+}
+
+/* ===== Animation ===== */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ===== Success Message ===== */
+.sn-alert-success {
+    background: rgba(40, 167, 69, 0.2);
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    text-align: center;
+    font-size: 14px;
+    color: #d4edda;
+}
+
+/* ===== Improve Input + Icon Alignment ===== */
+.sn-form-label i {
+    color: #ffd369;
+}
+
+/* ===== Input Placeholder Styling ===== */
+.sn-form-input::placeholder {
+    color: #999;
+    font-size: 13px;
+}
+
+/* ===== Slight spacing tweak for login card ===== */
+.sn-auth-card {
+    position: relative;
+}
+
+/* ===== Button active effect ===== */
+.sn-submit-btn:active {
+    transform: scale(0.98);
+}
+
+/* ===== Link hover enhancement ===== */
+.sn-auth-switch a {
+    transition: all 0.2s ease;
+}
+
+.sn-auth-switch a:hover {
+    color: #ffb703;
+}
+
+/* ===== Optional: subtle divider ===== */
+.sn-divider {
+    text-align: center;
+    margin: 15px 0;
+    font-size: 12px;
+    opacity: 0.7;
+}
+
+.sn-divider::before,
+.sn-divider::after {
+    content: "";
+    display: inline-block;
+    width: 40%;
+    height: 1px;
+    background: rgba(255,255,255,0.3);
+    margin: 0 5px;
+    vertical-align: middle;
+}
+
+/* ===== Hero Section ===== */
+.sn-hero {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    padding: 80px 0;
+    color: #fff;
+}
+
+.sn-hero h1 {
+    font-size: 42px;
+    font-weight: 700;
+    line-height: 1.2;
+    margin: 15px 0;
+}
+
+.sn-hero p {
+    font-size: 15px;
+    opacity: 0.9;
+    margin-bottom: 20px;
+}
+
+.sn-hero-tag {
+    display: inline-block;
+    background: rgba(255,255,255,0.15);
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+}
+
+.sn-hero-btn {
+    display: inline-block;
+    background: #ffd369;
+    color: #333;
+    padding: 10px 18px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.sn-hero-btn:hover {
+    background: #ffb703;
+    transform: translateY(-2px);
+}
+
+.sn-page {
+    padding: 40px 0;
+    background: #f8f9fa;
+}
+
+.sn-section-title {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.sn-divider {
+    height: 2px;
+    width: 60px;
+    background: #ffd369;
+    margin-bottom: 20px;
+}
+
+.sn-cat-card {
+    display: block;
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: 1px solid #eee;
+}
+
+.sn-cat-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+.sn-cat-img-wrap {
+    height: 120px;
+    overflow: hidden;
+}
+
+.sn-cat-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.sn-cat-body {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px;
+}
+
+.sn-cat-name {
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+}
+
+.sn-cat-arrow {
+    color: #888;
+}
+
+.sn-product-card {
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid #eee;
+    transition: all 0.3s ease;
+    height: 100%;
+}
+
+.sn-product-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+}
+
+/* Image */
+.sn-product-img-wrap {
+    height: 180px;
+    overflow: hidden;
+}
+
+.sn-product-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Body */
+.sn-product-body {
+    padding: 12px;
+}
+
+.sn-product-cat {
+    font-size: 11px;
+    color: #888;
+    margin-bottom: 4px;
+}
+
+.sn-product-name {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.sn-product-desc {
+    font-size: 12px;
+    color: #666;
+    height: 32px;
+    overflow: hidden;
+}
+
+/* Footer */
+.sn-product-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.sn-product-price {
+    font-weight: bold;
+    color: #333;
+}
+
+/* Add button */
+.sn-add-btn {
+    background: #ffd369;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 6px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.sn-add-btn:hover {
+    background: #ffb703;
+}
+
+.sn-stock-badge {
+    font-size: 11px;
+    padding: 3px 8px;
+    border-radius: 6px;
+}
+
+.sn-in-stock {
+    background: #d4edda;
+    color: #155724;
+}
+
+.sn-out-stock {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+.sn-footer {
+    background: #1f1f1f;
+    color: #ccc;
+    padding: 40px 0 20px;
+}
+
+.sn-footer-brand {
+    font-size: 20px;
+    font-weight: bold;
+    color: #fff;
+}
+
+.sn-footer-brand span {
+    color: #ffd369;
+}
+
+.sn-footer a {
+    text-decoration: none;
+}
+
+.sn-footer a:hover {
+    color: #ffd369 !important;
+}
+
+.sn-footer-bottom {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 13px;
+    color: #888;
+}
+
+/* ============================= */
+/* CART PAGE */
+/* ============================= */
+
+.sn-cart-empty {
+    text-align: center;
+    padding: 60px 20px;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.05);
+}
+
+.sn-cart-empty i {
+    font-size: 60px;
+    color: #d6d3cd;
+}
+
+.sn-cart-empty h3 {
+    margin-top: 15px;
+    font-weight: 600;
+}
+
+.sn-cart-empty p {
+    color: #a8a49c;
+}
+
+
+/* ============================= */
+/* CART ITEM */
+/* ============================= */
+
+.sn-cart-item {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    background: #fff;
+    padding: 18px;
+    border-radius: 16px;
+    margin-bottom: 15px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.05);
+    transition: 0.3s;
+}
+
+.sn-cart-item:hover {
+    transform: translateY(-3px);
+}
+
+/* Product Image */
+.sn-cart-item-img {
+    width: 90px;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 12px;
+}
+
+/* Info */
+.sn-cart-item-info {
+    flex: 1;
+}
+
+.sn-cart-item-name {
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.sn-cart-item-price {
+    font-size: 14px;
+    color: #888;
+}
+
+/* ============================= */
+/* QUANTITY */
+/* ============================= */
+
+.sn-qty-control {
+    display: flex;
+    align-items: center;
+    border: 1px solid #e5e2db;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.sn-qty-btn {
+    background: #f5f3ef;
+    border: none;
+    padding: 6px 12px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.sn-qty-btn:hover {
+    background: #e8e6e0;
+}
+
+.sn-qty-input {
+    padding: 0 12px;
+    font-weight: 600;
+}
+
+/* ============================= */
+/* SUBTOTAL */
+/* ============================= */
+
+.sn-cart-item-subtotal {
+    font-weight: 600;
+    font-size: 16px;
+    min-width: 80px;
+    text-align: right;
+}
+
+/* ============================= */
+/* REMOVE BUTTON */
+/* ============================= */
+
+.sn-remove-btn {
+    background: #fff0f0;
+    border: none;
+    color: #d9534f;
+    padding: 8px 10px;
+    border-radius: 8px;
+    transition: 0.2s;
+}
+
+.sn-remove-btn:hover {
+    background: #ffe2e2;
+}
+
+
+/* ============================= */
+/* SUMMARY BOX */
+/* ============================= */
+
+.sn-cart-summary {
+    background: #fff;
+    padding: 20px;
+    border-radius: 16px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.05);
+    position: sticky;
+    top: 90px;
+}
+
+.sn-summary-title {
+    font-weight: 600;
+    margin-bottom: 15px;
+    font-size: 18px;
+}
+
+.sn-summary-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    margin-bottom: 6px;
+}
+
+.sn-summary-total {
+    display: flex;
+    justify-content: space-between;
+    font-weight: 700;
+    font-size: 18px;
+    margin-top: 10px;
+}
+
+/* ============================= */
+/* BUTTONS */
+/* ============================= */
+
+.sn-checkout-btn {
+    width: 100%;
+    margin-top: 15px;
+    padding: 10px;
+    background: #1a5c38;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.sn-checkout-btn:hover {
+    background: #14482c;
+}
+
+.sn-clear-btn {
+    width: 100%;
+    margin-top: 10px;
+    padding: 8px;
+    background: transparent;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    font-size: 14px;
+}
+
+.sn-clear-btn:hover {
+    background: #f5f5f5;
+}
+
+
+/* ============================= */
+/* STOCK BADGE */
+/* ============================= */
+
+.sn-stock-badge {
+    font-size: 12px;
+    padding: 4px 8px;
+    border-radius: 6px;
+}
+
+.sn-in-stock {
+    background: #e6f4ea;
+    color: #1a7f37;
+}
+
+.sn-out-stock {
+    background: #fdecea;
+    color: #d93025;
+}
+
+/* ============================= */
+/* NAVBAR */
+/* ============================= */
+
+.sn-navbar {
+    background: #ffffff;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+    padding: 10px 0;
+    z-index: 1000;
+}
+
+/* Brand */
+.sn-brand {
+    font-size: 22px;
+    font-weight: 700;
+    color: #222 !important;
+}
+
+.sn-brand span {
+    color: #1a5c38;
+}
+
+/* Nav links */
+.sn-nav-link {
+    color: #444 !important;
+    font-weight: 500;
+    transition: 0.2s;
+}
+
+.sn-nav-link:hover {
+    color: #1a5c38 !important;
+}
+
+/* ============================= */
+/* SEARCH BAR */
+/* ============================= */
+
+.sn-search-form {
+    width: 40%;
+}
+
+.sn-search-input {
+    border-radius: 10px 0 0 10px;
+    border: 1px solid #ddd;
+    padding: 8px 12px;
+}
+
+.sn-search-input:focus {
+    box-shadow: none;
+    border-color: #1a5c38;
+}
+
+.sn-search-btn {
+    background: #1a5c38;
+    color: #fff;
+    border-radius: 0 10px 10px 0;
+}
+
+.sn-search-btn:hover {
+    background: #14482c;
+}
+
+/* ============================= */
+/* DROPDOWN */
+/* ============================= */
+
+.sn-dropdown {
+    border-radius: 12px;
+    border: none;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+    padding: 8px;
+}
+
+.sn-dropdown-item {
+    border-radius: 8px;
+    padding: 8px 12px;
+    transition: 0.2s;
+}
+
+.sn-dropdown-item:hover {
+    background: #f5f5f5;
+    color: #1a5c38;
+}
+
+/* ============================= */
+/* BUTTONS */
+/* ============================= */
+
+.sn-btn-primary {
+    background: #1a5c38;
+    color: #fff;
+    border-radius: 10px;
+    padding: 6px 14px;
+    font-weight: 500;
+}
+
+.sn-btn-primary:hover {
+    background: #14482c;
+    color: #fff;
+}
+
+.sn-btn-outline {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 6px 14px;
+}
+
+.sn-btn-outline:hover {
+    background: #f5f5f5;
+}
+
+/* Logout */
+.sn-btn-logout {
+    background: #fff0f0;
+    color: #d9534f;
+    border-radius: 10px;
+    padding: 6px 14px;
+}
+
+.sn-btn-logout:hover {
+    background: #ffe2e2;
+}
+
+/* ============================= */
+/* CART BUTTON */
+/* ============================= */
+
+.sn-cart-btn {
+    position: relative;
+    background: #f5f3ef;
+    padding: 6px 12px;
+    border-radius: 10px;
+    font-weight: 500;
+    color: #333;
+    text-decoration: none;
+    transition: 0.2s;
+}
+
+.sn-cart-btn:hover {
+    background: #e8e6e0;
+    color: #000;
+}
+
+/* Optional badge (if you add count later) */
+.sn-cart-btn::after {
+    content: '';
+}
+
+/* ============================= */
+/* GREETING */
+/* ============================= */
+
+.sn-greeting {
+    font-size: 14px;
+    color: #666;
+    margin-right: 5px;
+}
+
+/* ============================= */
+/* MOBILE */
+/* ============================= */
+
+@media (max-width: 992px) {
+
+    .sn-search-form {
+        width: 100%;
+        margin: 10px 0;
+    }
+
+    .navbar-nav {
+        gap: 10px;
+    }
+}
+
+/* ── Category Header Enhanced ─────────────────────────────── */
+.sn-cat-header {
+  background: var(--white);
+  border-bottom: 1px solid var(--gray-200);
+  padding: 32px 0;
+  box-shadow: var(--shadow-sm);
+}
+
+.sn-cat-header h1 {
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--gray-800);
+  margin-bottom: 6px;
+  font-family: var(--font-display);
+}
+
+.sn-breadcrumb {
+  font-size: 13px;
+  color: var(--gray-400);
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+}
+
+.sn-breadcrumb a {
+  color: var(--green);
+  font-weight: 500;
+}
+
+.sn-breadcrumb a:hover {
+  color: var(--green-dark);
+}

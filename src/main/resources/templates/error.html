@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title th:text="${errorTitle} + ' — ShopNest'">Error — ShopNest</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+  <link rel="stylesheet" th:href="@{/css/shopnest.css}">
+  <style>
+    .error-page {
+      min-height: 80vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+    .error-card {
+      background: white;
+      border-radius: var(--radius-lg);
+      padding: 48px 40px;
+      max-width: 520px;
+      width: 100%;
+      text-align: center;
+      box-shadow: var(--shadow-lg);
+      border: 1px solid var(--gray-200);
+    }
+    .error-code {
+      font-family: var(--font-display);
+      font-size: 80px;
+      font-weight: 700;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .error-404 { color: var(--green-light);
+                 -webkit-text-stroke: 3px var(--green); }
+    .error-403 { color: #faeeda;
+                 -webkit-text-stroke: 3px var(--amber); }
+    .error-500 { color: #fdecea;
+                 -webkit-text-stroke: 3px var(--red); }
+    .error-icon {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      font-size: 32px;
+    }
+    .icon-404 { background: var(--green-light); color: var(--green); }
+    .icon-403 { background: #faeeda; color: var(--amber); }
+    .icon-500 { background: #fdecea; color: var(--red); }
+  </style>
+</head>
+<body>
+
+<div th:replace="~{fragments/navbar :: navbar}" th:if="${true}"></div>
+
+<div class="error-page">
+  <div class="error-card">
+
+    <!-- Icon based on error code -->
+    <div class="error-icon"
+         th:classappend="${errorCode == '404'} ? 'icon-404' :
+                         (${errorCode == '403'} ? 'icon-403' : 'icon-500')">
+      <i class="bi"
+         th:classappend="${errorCode == '404'} ? 'bi-compass' :
+                         (${errorCode == '403'} ? 'bi-shield-x' : 'bi-exclamation-triangle')">
+      </i>
+    </div>
+
+    <!-- Error code -->
+    <div class="error-code"
+         th:classappend="${errorCode == '404'} ? 'error-404' :
+                         (${errorCode == '403'} ? 'error-403' : 'error-500')"
+         th:text="${errorCode}">
+      500
+    </div>
+
+    <!-- Title -->
+    <h3 style="font-family:var(--font-display);
+               font-weight:600; margin-bottom:12px;"
+        th:text="${errorTitle}">
+      Error
+    </h3>
+
+    <!-- Message -->
+    <p style="color:var(--gray-400); font-size:15px;
+              margin-bottom:28px; line-height:1.6;"
+       th:text="${errorMessage}">
+      Something went wrong.
+    </p>
+
+    <!-- Action buttons -->
+    <div class="d-flex gap-3 justify-content-center flex-wrap">
+
+      <a th:href="@{/}" class="sn-btn-primary">
+        <i class="bi bi-house me-2"></i>Go Home
+      </a>
+
+      <button onclick="history.back()" class="sn-btn-outline">
+        <i class="bi bi-arrow-left me-2"></i>Go Back
+      </button>
+
+    </div>
+
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

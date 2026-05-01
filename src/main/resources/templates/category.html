@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title th:text="${category.name} + ' — ShopNest'">Category — ShopNest</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+  <link rel="stylesheet" th:href="@{/css/shopnest.css}">
+</head>
+<body>
+
+<!-- Navbar -->
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<!-- Category Header -->
+<div class="sn-cat-header">
+  <div class="container">
+
+    <!-- Breadcrumb -->
+    <div class="sn-breadcrumb">
+      <a th:href="@{/}">
+        <i class="bi bi-house me-1"></i>Home
+      </a>
+      <span class="mx-2">›</span>
+      <span th:text="${category.name}">Category</span>
+    </div>
+
+    <!-- Category info row -->
+    <div class="d-flex align-items-center gap-4">
+
+      <!-- Category image circle -->
+      <div style="width:72px; height:72px; border-radius:50%;
+                  overflow:hidden; border:3px solid var(--green-light);
+                  flex-shrink:0; box-shadow:var(--shadow-md);">
+        <img th:src="${category.imageUrl}"
+             th:alt="${category.name}"
+             style="width:100%; height:100%; object-fit:cover;"
+             onerror="this.src='https://picsum.photos/seed/default/400/300'">
+      </div>
+
+      <!-- Category text -->
+      <div>
+        <h1 th:text="${category.name}"
+            style="margin-bottom:6px;">Category Name</h1>
+
+        <div class="d-flex align-items-center gap-3">
+          <span style="color:var(--gray-400); font-size:15px;"
+                th:text="${#lists.size(products)} + ' products found'">
+          </span>
+          <span style="background:var(--green-light);
+                       color:var(--green-dark);
+                       font-size:12px; font-weight:600;
+                       padding:3px 12px; border-radius:999px;">
+            <i class="bi bi-grid me-1"></i>
+            <span th:text="${category.name}"></span>
+          </span>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<!-- Products -->
+<div class="sn-page">
+  <div class="container">
+
+    <!-- Flash messages -->
+    <div class="sn-alert-success"
+         th:if="${successMessage}"
+         th:text="${successMessage}">
+    </div>
+
+    <!-- Empty state -->
+    <div th:if="${#lists.isEmpty(products)}"
+         class="text-center py-5">
+      <i class="bi bi-box-seam"
+         style="font-size:64px; color:#e8e6e0; display:block; margin-bottom:16px;"></i>
+      <h3 style="color:#6b6860;">No products in this category yet</h3>
+      <p style="color:#a8a49c;">Check back soon — new products are added regularly.</p>
+      <a th:href="@{/}" class="sn-btn-primary mt-3 d-inline-block">
+        Go back home
+      </a>
+    </div>
+
+    <!-- Products grid -->
+    <div class="row g-3" th:if="${!#lists.isEmpty(products)}">
+      <div class="col-6 col-md-4 col-lg-3"
+           th:each="product : ${products}">
+        <div class="sn-product-card">
+
+          <!-- Product Image -->
+          <div class="sn-product-img-wrap">
+            <img th:src="${product.imageUrl}"
+                 th:alt="${product.name}"
+                 onerror="this.src='https://picsum.photos/seed/product/400/300'">
+          </div>
+
+          <!-- Product Info -->
+          <div class="sn-product-body">
+            <div class="sn-product-cat"
+                 th:text="${product.category.name}">Category</div>
+            <div class="sn-product-name"
+                 th:text="${product.name}">Product Name</div>
+            <div class="sn-product-desc"
+                 th:text="${product.description}">Description</div>
+
+            <div class="sn-product-footer">
+              <div class="sn-product-price">
+                ₹<span th:text="${#numbers.formatDecimal(product.price, 1, 'COMMA', 0, 'POINT')}">0</span>
+              </div>
+
+              <!-- Add to Cart — logged in users -->
+              <div sec:authorize="isAuthenticated()">
+                <form th:action="@{/cart/add}" method="post">
+                  <input type="hidden" name="productId"
+                         th:value="${product.id}">
+                  <input type="hidden" name="quantity" value="1">
+                  <button type="submit" class="sn-add-btn"
+                          th:disabled="${product.stock == 0}">
+                    <i class="bi bi-bag-plus"></i>
+                    <span th:text="${product.stock == 0} ? 'Sold Out' : 'Add'">Add</span>
+                  </button>
+                </form>
+              </div>
+
+              <!-- Login prompt for guests -->
+              <div sec:authorize="isAnonymous()">
+                <a th:href="@{/login}" class="sn-add-btn">
+                  <i class="bi bi-bag-plus"></i> Add
+                </a>
+              </div>
+
+            </div>
+
+            <!-- Stock badge -->
+            <div class="mt-2">
+              <span class="sn-stock-badge sn-in-stock"
+                    th:if="${product.stock > 0}"
+                    th:text="'In Stock (' + ${product.stock} + ')'">
+              </span>
+              <span class="sn-stock-badge sn-out-stock"
+                    th:if="${product.stock == 0}">
+                Out of Stock
+              </span>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Footer -->
+<footer class="sn-footer">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="sn-footer-brand">Shop<span>Nest</span></div>
+        <p>Your one-stop destination for everything you love.</p>
+      </div>
+      <div class="col-md-6">
+        <p class="fw-semibold text-white mb-3">Categories</p>
+        <div class="d-flex flex-wrap gap-2">
+          <a th:each="cat : ${categories}"
+             th:href="@{/category/{id}(id=${cat.id})}"
+             th:text="${cat.name}"
+             style="color:rgba(255,255,255,0.6); font-size:13px;">
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="sn-footer-bottom">
+      © 2024 ShopNest. All rights reserved.
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

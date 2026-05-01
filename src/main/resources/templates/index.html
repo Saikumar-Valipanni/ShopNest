@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ShopNest — Shop Everything</title>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+  <link rel="stylesheet" th:href="@{/css/shopnest.css}">
+</head>
+
+<body>
+
+<!-- Navbar -->
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<!-- HERO -->
+<section class="sn-hero">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-7">
+        <span class="sn-hero-tag">
+          <i class="bi bi-lightning-charge-fill me-1"></i>
+          New arrivals every week
+        </span>
+
+        <h1>Find Everything<br>You Love at<br>ShopNest</h1>
+
+        <p>
+          Browse thousands of products across categories.<br>
+          Quality products, great prices, fast delivery.
+        </p>
+
+        <a th:href="@{/category/1}" class="sn-hero-btn">
+          Shop Now <i class="bi bi-arrow-right ms-2"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MAIN -->
+<div class="sn-page">
+  <div class="container">
+
+    <!-- Flash -->
+    <div class="sn-alert-success"
+         th:if="${successMessage}"
+         th:text="${successMessage}">
+    </div>
+
+    <!-- ================= CATEGORIES ================= -->
+    <div class="mb-5">
+      <div class="sn-section-title">Shop by Category</div>
+      <div class="sn-divider"></div>
+
+      <div class="row g-3">
+
+        <div class="col-6 col-md-4"
+             style="flex: 0 0 20%; max-width: 20%;"
+             th:each="cat : ${categories}">
+
+          <a class="sn-cat-card"
+             th:href="@{/category/{id}(id=${cat.id})}">
+
+            <div class="sn-cat-img-wrap">
+              <img
+                th:src="${cat.imageUrl != null ? cat.imageUrl : 'https://picsum.photos/seed/default/400/300'}"
+                th:alt="${cat.name}">
+            </div>
+
+            <div class="sn-cat-body">
+              <span class="sn-cat-name"
+                    th:text="${cat.name != null ? cat.name : 'Category'}"></span>
+
+              <span class="sn-cat-arrow">
+                <i class="bi bi-chevron-right"></i>
+              </span>
+            </div>
+
+          </a>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ================= PRODUCTS ================= -->
+    <div>
+
+      <div class="d-flex justify-content-between align-items-center mb-2">
+        <div class="sn-section-title">Featured Products</div>
+      </div>
+
+      <div class="sn-divider"></div>
+
+      <div class="row g-3">
+
+        <div class="col-6 col-md-4 col-lg-3"
+             th:each="product : ${featuredProducts}">
+
+          <div class="sn-product-card">
+
+            <!-- IMAGE -->
+            <div class="sn-product-img-wrap">
+              <img
+                th:src="${product.imageUrl != null ? product.imageUrl : 'https://picsum.photos/seed/product/400/300'}"
+                th:alt="${product.name}">
+            </div>
+
+            <!-- BODY -->
+            <div class="sn-product-body">
+
+              <!-- Category -->
+              <div class="sn-product-cat"
+                   th:text="${product.category != null ? product.category.name : 'No Category'}">
+              </div>
+
+              <!-- Name -->
+              <div class="sn-product-name"
+                   th:text="${product.name != null ? product.name : 'Product'}">
+              </div>
+
+              <!-- Description -->
+              <div class="sn-product-desc"
+                   th:text="${product.description != null ? product.description : 'No description'}">
+              </div>
+
+              <!-- Footer -->
+              <div class="sn-product-footer">
+
+                <!-- Price -->
+                <div class="sn-product-price">
+                  ₹
+                  <span th:text="${product.price != null ? #numbers.formatDecimal(product.price, 1, 'COMMA', 0, 'POINT') : 0}">
+                  </span>
+                </div>
+
+                <!-- Authenticated -->
+				
+				<div sec:authorize="isAuthenticated()">
+				  <form th:action="@{/cart/add}" method="post">
+				    <input type="hidden" name="productId"
+				           th:value="${product.id}">
+				    <input type="hidden" name="quantity" value="1">
+
+				    <button type="submit" class="sn-add-btn"
+				            th:disabled="${product.stock == null or product.stock == 0}">
+				      <i class="bi bi-bag-plus"></i>
+				      <span th:text="${product.stock == null or product.stock == 0} ? 'Sold Out' : 'Add'">Add</span>
+				    </button>
+				  </form>
+				</div>
+
+                <!-- Guest -->
+                <div sec:authorize="isAnonymous()">
+                  <a th:href="@{/login}" class="sn-add-btn">
+                    <i class="bi bi-bag-plus"></i> Add
+                  </a>
+                </div>
+
+              </div>
+
+              <!-- Stock -->
+              <div class="mt-2">
+
+                <span class="sn-stock-badge sn-in-stock"
+                      th:if="${product.stock != null and product.stock > 0}">
+                  In Stock
+                </span>
+
+                <span class="sn-stock-badge sn-out-stock"
+                      th:if="${product.stock == null or product.stock == 0}">
+                  Out of Stock
+                </span>
+
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="sn-footer">
+  <div class="container">
+
+    <div class="row">
+
+      <div class="col-md-4">
+        <div class="sn-footer-brand">Shop<span>Nest</span></div>
+        <p>Your one-stop destination for everything you love.</p>
+      </div>
+
+      <div class="col-md-4">
+        <p class="fw-semibold text-white mb-3">Categories</p>
+
+        <ul class="list-unstyled">
+          <li th:each="cat : ${categories}">
+            <a th:href="@{/category/{id}(id=${cat.id})}"
+               th:text="${cat.name}"
+               style="color:rgba(255,255,255,0.6); font-size:14px;">
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="col-md-4">
+        <p class="fw-semibold text-white mb-3">Quick Links</p>
+
+        <ul class="list-unstyled" style="font-size:14px;">
+          <li><a th:href="@{/}" style="color:rgba(255,255,255,0.6)">Home</a></li>
+
+          <li sec:authorize="isAnonymous()">
+            <a th:href="@{/login}" style="color:rgba(255,255,255,0.6)">Login</a>
+          </li>
+
+          <li sec:authorize="isAnonymous()">
+            <a th:href="@{/register}" style="color:rgba(255,255,255,0.6)">Register</a>
+          </li>
+
+          <li sec:authorize="isAuthenticated()">
+            <a th:href="@{/cart}" style="color:rgba(255,255,255,0.6)">My Cart</a>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="sn-footer-bottom">
+      © 2026 ShopNest. All rights reserved.
+    </div>
+
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
